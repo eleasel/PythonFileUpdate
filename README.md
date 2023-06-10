@@ -2,37 +2,52 @@
 
 
 <h2>Project Description</h2>
-At my organization, access to restricted content is controlled with an allow list of IP addresses. The "allow_list.txt" file identifies these IP addresses. A separate remove list identifies IP addresses that should no longer have access to this content. I created an algorithm to automate updating the "allow_list.txt" file and remove these IP addresses that should no longer have access.
+My organization is working to make their system more secure. It is my job to ensure the system is safe, investigate all potential security issues, and update employee computers as needed. The following steps provide examples of how I used SQL with filters to perform security-related tasks.
 <br />
 
-<h2>Open the file that contains the allow list</h2>
+<h2>Retrieve after hours failed login attempts</h2>
+There was a potential security incident that occurred after business hours (after 18:00). All after hours login attempts that failed need to be investigated.
+The following code demonstrates how I created a SQL query to filter for failed login attempts that occurred after business hours.
 
-For the first part of the algorithm, I opened the "allow_list.txt" file. First, I assigned this file name as a string to the import_file variable:
+![image](https://github.com/eleasel/PythonFileUpdate/assets/101367394/d210883c-a1a1-4906-a4c8-7bf3df5613df)
 
-![image](https://github.com/eleasel/PythonFileUpdate/assets/101367394/0e322e68-14a9-4d99-9929-b973fb4bb8b7)
+The first part of the screenshot is my query, and the second part is a portion of the output. This query filters for failed login attempts that occurred after 18:00. First, I started by selecting all data from the log_in_attempts table. Then, I used a WHERE clause with an AND operator to filter my results to output only login attempts that occurred after 18:00 and were unsuccessful. The first condition is login_time > '18:00', which filters for the login attempts that occurred after 18:00. The second condition is success = FALSE, which filters for the failed login attempts. 
 
-<br />
+<h2>Retrieve login attempts on specific dates</h2>
 
-Then, I used a with statement to open the file:
+A suspicious event occurred on 2022-05-09. Any login activity that happened on 2022-05-09 or on the day before needs to be investigated.
+The following code demonstrates how I created a SQL query to filter for login attempts that occurred on specific dates.
 
-![image](https://github.com/eleasel/PythonFileUpdate/assets/101367394/7c298410-b779-4ddc-89f3-50dda3138a1a)
+![image](https://github.com/eleasel/PythonFileUpdate/assets/101367394/de575e1a-1b7d-4d3f-b779-d33fb509d6fc)
 
-In my algorithm, the with statement is used with the .open() function in read mode to open the allow list file for the purpose of reading it. The purpose of opening the file is to allow me to access the IP addresses stored in the allow list file. The with keyword will help manage the resources by closing the file after exiting the with statement. In the code with open(import_file, "r") as file:, the open() function has two parameters. The first identifies the file to import, and then the second indicates what I want to do with the file. In this case, "r" indicates that I want to read it. The code also uses the as keyword to assign a variable named file; file stores the output of the .open() function while I work within the with statement.
+The first part of the screenshot is my query, and the second part is a portion of the output. This query returns all login attempts that occurred on 2022-05-09 or 2022-05-08. First, I started by selecting all data from the log_in_attempts table. Then, I used a WHERE clause with an OR operator to filter my results to output only login attempts that occurred on either 2022-05-09 or 2022-05-08. The first condition is login_date = '2022-05-09', which filters for logins on 2022-05-09. The second condition is login_date = '2022-05-08', which filters for logins on 2022-05-08.
 
-<h2>Read the file contents</h2>
-In order to read the file contents, I used the .read() method to convert it into the string.
 
-![image](https://github.com/eleasel/PythonFileUpdate/assets/101367394/b9df522d-6499-4deb-829c-602396218c0d)
+<h2>Retrieve login attempts outside of Mexico</h2>
+After investigating the organization’s data on login attempts, I believe there is an issue with the login attempts that occurred outside of Mexico. These login attempts should be investigated.
 
-When using an .open() function that includes the argument "r" for “read,” I can call the .read() function in the body of the with statement. The .read() method converts the file into a string and allows me to read it. I applied the .read() method to the file variable identified in the with statement. Then, I assigned the string output of this method to the variable ip_addresses. 
+The following code demonstrates how I created a SQL query to filter for login attempts that occurred outside of Mexico. 
 
-In summary, this code reads the contents of the "allow_list.txt" file into a string format that allows me to later use the string to organize and extract data in my Python program.
+![image](https://github.com/eleasel/PythonFileUpdate/assets/101367394/8e7a59af-2d2f-4cb8-beaa-55a1cfcfce74)
 
-<h2>Convert the string into a list</h2>
+The first part of the screenshot is my query, and the second part is a portion of the output. This query returns all login attempts that occurred in countries other than Mexico. First, I started by selecting all data from the log_in_attempts table. Then, I used a WHERE clause with NOT to filter for countries other than Mexico. I used LIKE with MEX% as the pattern to match because the dataset represents Mexico as MEX and MEXICO. The percentage sign (%) represents any number of unspecified characters when used with LIKE![image](https://github.com/eleasel/PythonFileUpdate/assets/101367394/a0085d95-862f-47b6-a859-dc8e50a517c2)
 
-In order to remove individual IP addresses from the allow list, I needed it to be in list format. Therefore, I next used the .split() method to convert the ip_addresses string into a list:
+<h2>Retrieve employees in Marketing</h2>
+My team wants to update the computers for certain employees in the Marketing department. To do this, I have to get information on which employee machines to update.
+The following code demonstrates how I created a SQL query to filter for employee machines from employees in the Marketing department in the East building.
 
- ![image](https://github.com/eleasel/PythonFileUpdate/assets/101367394/6dd6f692-f92f-419d-8c67-bb7b46271ef0)
+![image](https://github.com/eleasel/PythonFileUpdate/assets/101367394/152c8222-ca4c-4eb4-845d-3b5d3785ed9d)
+
+The first part of the screenshot is my query, and the second part is a portion of the output. This query returns all employees in the Marketing department in the East building. First, I started by selecting all data from the employees table. Then, I used a WHERE clause with AND to filter for employees who work in the Marketing department and in the East building. I used LIKE with East% as the pattern to match because the data in the office column represents the East building with the specific office number. The first condition is the department = 'Marketing' portion, which filters for employees in the Marketing department. The second condition is the office LIKE 'East%' portion, which filters for employees in the East building.
+
+<h2>Retrieve employees in Finance or Sales</h2>
+
+The machines for employees in the Finance and Sales departments also need to be updated. Since a different security update is needed, I have to get information on employees only from these two departments.
+The following code demonstrates how I created a SQL query to filter for employee machines from employees in the Finance or Sales departments.
+
+![image](https://github.com/eleasel/PythonFileUpdate/assets/101367394/8e82ed99-da76-4f3f-8c21-e799a629803b)
+
+
 
 The .split() function is called by appending it to a string variable. It works by converting the contents of a string to a list. The purpose of splitting ip_addresses into a list is to make it easier to remove IP addresses from the allow list. By default, the .split() function splits the text by whitespace into list elements. In this algorithm, the .split() function takes the data stored in the variable ip_addresses, which is a string of IP addresses that are each separated by a whitespace, and it converts this string into a list of IP addresses. To store this list, I reassigned it back to the variable ip_addresses. 
 
