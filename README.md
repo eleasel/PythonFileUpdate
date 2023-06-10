@@ -1,4 +1,4 @@
-<h1>Update a file through a Python algorithm</h1>
+<h1>Apply filters to SQL queries</h1>
 
 
 <h2>Project Description</h2>
