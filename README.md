@@ -18,7 +18,8 @@ The first part of the screenshot is my query, and the second part is a portion o
 A suspicious event occurred on 2022-05-09. Any login activity that happened on 2022-05-09 or on the day before needs to be investigated.
 The following code demonstrates how I created a SQL query to filter for login attempts that occurred on specific dates.
 
-![image](https://github.com/eleasel/PythonFileUpdate/assets/101367394/de575e1a-1b7d-4d3f-b779-d33fb509d6fc)
+![image](https://github.com/eleasel/PythonFileUpdate/assets/101367394/77aa91dd-0a26-4dfb-be9f-77e1d28e5523)
+
 
 The first part of the screenshot is my query, and the second part is a portion of the output. This query returns all login attempts that occurred on 2022-05-09 or 2022-05-08. First, I started by selecting all data from the log_in_attempts table. Then, I used a WHERE clause with an OR operator to filter my results to output only login attempts that occurred on either 2022-05-09 or 2022-05-08. The first condition is login_date = '2022-05-09', which filters for logins on 2022-05-09. The second condition is login_date = '2022-05-08', which filters for logins on 2022-05-08.
 
@@ -30,7 +31,7 @@ The following code demonstrates how I created a SQL query to filter for login at
 
 ![image](https://github.com/eleasel/PythonFileUpdate/assets/101367394/8e7a59af-2d2f-4cb8-beaa-55a1cfcfce74)
 
-The first part of the screenshot is my query, and the second part is a portion of the output. This query returns all login attempts that occurred in countries other than Mexico. First, I started by selecting all data from the log_in_attempts table. Then, I used a WHERE clause with NOT to filter for countries other than Mexico. I used LIKE with MEX% as the pattern to match because the dataset represents Mexico as MEX and MEXICO. The percentage sign (%) represents any number of unspecified characters when used with LIKE![image](https://github.com/eleasel/PythonFileUpdate/assets/101367394/a0085d95-862f-47b6-a859-dc8e50a517c2)
+The first part of the screenshot is my query, and the second part is a portion of the output. This query returns all login attempts that occurred in countries other than Mexico. First, I started by selecting all data from the log_in_attempts table. Then, I used a WHERE clause with NOT to filter for countries other than Mexico. I used LIKE with MEX% as the pattern to match because the dataset represents Mexico as MEX and MEXICO. The percentage sign (%) represents any number of unspecified characters when used with LIKE![image]
 
 <h2>Retrieve employees in Marketing</h2>
 My team wants to update the computers for certain employees in the Marketing department. To do this, I have to get information on which employee machines to update.
